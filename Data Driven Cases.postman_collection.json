@@ -1,0 +1,70 @@
+{
+	"info": {
+		"_postman_id": "b1d1de2d-6dfd-4422-9909-a6db953058ce",
+		"name": "Data Driven Cases",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19726677"
+	},
+	"item": [
+		{
+			"name": "Create New Portfolio_DataDriven",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"productCategoryInstanceId\": {{productCategoryInstanceId}},\r\n  \"userId\": {{userId}},\r\n  \"portfolioDtoList\": [\r\n    {\r\n      \r\n      \"buyOrSale\": {{buyOrSale1}},\r\n      \"multiplier\": 1,\r\n      \"openPrice\": 2400,\r\n      \"closePrice\": 2410,\r\n      \"highPrice\": 2500,\r\n      \"lowPrice\": 2350,\r\n      \"percentageChanges\": 0.42,\r\n      \"points\": 10,\r\n      \"itemId\": {{itemId1}},\r\n      \"active\": true\r\n    }, {\r\n      \r\n      \"buyOrSale\": {{buyOrSale2}},\r\n      \"multiplier\": 3,\r\n      \"openPrice\": 2400,\r\n      \"closePrice\": 2410,\r\n      \"highPrice\": 2500,\r\n      \"lowPrice\": 2350,\r\n      \"percentageChanges\": 0.42,\r\n      \"points\": 10,\r\n      \"itemId\": {{itemId2}},\r\n      \"active\": true\r\n    }, {\r\n      \r\n      \"buyOrSale\": {{buyOrSale3}},\r\n      \"multiplier\": 2,\r\n      \"openPrice\": 2400,\r\n      \"closePrice\": 2410,\r\n      \"highPrice\": 2500,\r\n      \"lowPrice\": 2350,\r\n      \"percentageChanges\": 0.42,\r\n      \"points\": 10,\r\n      \"itemId\": {{itemId3}},\r\n      \"active\": true\r\n    }, {\r\n      \r\n      \"buyOrSale\": {{buyOrSale4}},\r\n      \"multiplier\": 4,\r\n      \"openPrice\": 2400,\r\n      \"closePrice\": 2410,\r\n      \"highPrice\": 2500,\r\n      \"lowPrice\": 2350,\r\n      \"percentageChanges\": 0.42,\r\n      \"points\": 10,\r\n      \"itemId\": {{itemId4}},\r\n      \"active\": true\r\n    }\r\n  ]\r\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLCONTEST}}/api/v1/contest/contestPortfolio/save",
+					"host": [
+						"{{URLCONTEST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"contest",
+						"contestPortfolio",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Contest Participant data driven",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userId\": {{userId}},\r\n  \"contestPortfolioId\": {{contestPortfolioId}},\r\n  \"contestInstanceId\": \"{{contestInstanceId}}\",\r\n  \"productCategoryInstanceId\": {{productCategoryInstanceId}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLCONTEST}}/api/v1/contest/contestParticipent/save",
+					"host": [
+						"{{URLCONTEST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"contest",
+						"contestParticipent",
+						"save"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

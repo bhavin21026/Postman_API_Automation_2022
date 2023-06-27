@@ -1,0 +1,2232 @@
+{
+	"info": {
+		"_postman_id": "69743e45-a0f9-4b60-b1f9-540df86b9ccd",
+		"name": "Crsto API Gateway Service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19726677"
+	},
+	"item": [
+		{
+			"name": "User Registration And Login",
+			"item": [
+				{
+					"name": "Registration using blank mobile number",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"jsonBody= JSON.parse(responseBody)\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Verify that user should  not allow to register with same mobile number again\", function () {\r",
+									"\r",
+									"    pm.expect(jsonBody.error).to.eql(\"Please enter mobile number.\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{URLAPI}}/api/v1/user/register?mobileNumber=",
+							"host": [
+								"{{URLAPI}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"register"
+							],
+							"query": [
+								{
+									"key": "mobileNumber",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registration using invalid mobile number",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"jsonBody= JSON.parse(responseBody)\r",
+									"\r",
+									"var product=pm.environment.get(\"ProductName\")\r",
+									"\r",
+									"pm.test(\"Verify that user should  not allow to register with same mobile number again\", function () {\r",
+									"\r",
+									"    pm.expect(jsonBody.error).to.eql(\"Please enter valid mobile number.\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{URLAPI}}/api/v1/user/register?mobileNumber=90999210",
+							"host": [
+								"{{URLAPI}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"register"
+							],
+							"query": [
+								{
+									"key": "mobileNumber",
+									"value": "90999210"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User login with unregistered mobile number",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"jsonBody= JSON.parse(responseBody)\r",
+									"\r",
+									"\r",
+									"pm.test(\"Verify user should not allow to get him/her self register on crysto with login link\", function () {\r",
+									"\r",
+									"    pm.expect(jsonBody.errorMessage).to.eql(\"Oops! This mobile number is not registered\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{URLAPI}}/api/v1/user/loginUser?mobileNumber=9099921025",
+							"host": [
+								"{{URLAPI}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"loginUser"
+							],
+							"query": [
+								{
+									"key": "mobileNumber",
+									"value": "9099921025"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "First time user registration",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"jsonBody= JSON.parse(responseBody)\r",
+									"var otp= jsonBody.otp\r",
+									"pm.environment.set(\"OTP\", otp);\r",
+									"\r",
+									"pm.test(\"Verify that user should  allow to register with valid mobile number and OTP\", function () {\r",
+									"\r",
+									"    pm.expect(jsonBody.message).to.eql(\"OTP sent successfully.\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{URLAPI}}/api/v1/user/register?mobileNumber=9099921026",
+							"host": [
+								"{{URLAPI}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"register"
+							],
+							"query": [
+								{
+									"key": "mobileNumber",
+									"value": "9099921026"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User login without completing registration process",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"jsonBody= JSON.parse(responseBody)\r",
+									"\r",
+									"var otp= jsonBody.otp\r",
+									"pm.environment.set(\"OTP\", otp);\r",
+									"pm.test(\"Verify user should not allow to do login without completing registration process\", function () {\r",
+									"\r",
+									"      pm.expect(jsonBody.errorMessage).to.eql(\"Oops! This mobile number is not registered\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{URLAPI}}/api/v1/user/loginUser?mobileNumber=9099921026",
+							"host": [
+								"{{URLAPI}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"loginUser"
+							],
+							"query": [
+								{
+									"key": "mobileNumber",
+									"value": "9099921026"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login with Invalid OTP",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"jsonBody= JSON.parse(responseBody)\r",
+									"\r",
+									"pm.test(\"Verify user should not allow to do login with invalid OTP\", function () {\r",
+									"\r",
+									"    pm.expect(jsonBody.error).to.eql(\"Entered Invalid OTP,Please try again\");\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{URLAPI}}/api/v1/user/verifyOtp?otp=2365&mobileNumber=9099921025",
+							"host": [
+								"{{URLAPI}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"verifyOtp"
+							],
+							"query": [
+								{
+									"key": "otp",
+									"value": "2365"
+								},
+								{
+									"key": "mobileNumber",
+									"value": "9099921025"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login with blank OTP",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"jsonBody= JSON.parse(responseBody)\r",
+									"\r",
+									"pm.test(\"Verify user should not allow to do login without giving OTP\", function () {\r",
+									"\r",
+									"    \r",
+									"    pm.expect(jsonBody.error).to.eql(\"Please enter otp.\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{URLAPI}}/api/v1/user/verifyOtp?otp=&mobileNumber=9099921025",
+							"host": [
+								"{{URLAPI}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"verifyOtp"
+							],
+							"query": [
+								{
+									"key": "otp",
+									"value": ""
+								},
+								{
+									"key": "mobileNumber",
+									"value": "9099921025"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login with expired OTP",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"jsonBody= JSON.parse(responseBody)\r",
+									"\r",
+									"pm.test(\"Verify user should not allow to do login with expired OTP\", function () {\r",
+									"\r",
+									"    pm.expect(jsonBody.error).to.eql(\"Entered Invalid OTP,Please try again\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{URLAPI}}/api/v1/user/verifyOtp?otp=7901&mobileNumber=9099921025",
+							"host": [
+								"{{URLAPI}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"verifyOtp"
+							],
+							"query": [
+								{
+									"key": "otp",
+									"value": "7901"
+								},
+								{
+									"key": "mobileNumber",
+									"value": "9099921025"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login with valid OTP",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"jsonBody= JSON.parse(responseBody)\r",
+									"\r",
+									"var token= jsonBody.tokenDetails.access_token\r",
+									"console.log(token)\r",
+									"pm.environment.set(\"token\", token);\r",
+									"\r",
+									"pm.test(\"Verify user should allow to do login with valid OTP\", function () {\r",
+									"\r",
+									"\r",
+									"    pm.expect(pm.response.text()).to.include(\"tokenDetails\");\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify User information of logged in user\", function () {\r",
+									"\r",
+									"    pm.expect(jsonBody.userDetails.mobileNumber).to.eql(\"9099921026\");\r",
+									"\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{URLAPI}}/api/v1/user/verifyOtp?otp={{OTP}}&mobileNumber=9099921026",
+							"host": [
+								"{{URLAPI}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"verifyOtp"
+							],
+							"query": [
+								{
+									"key": "otp",
+									"value": "{{OTP}}"
+								},
+								{
+									"key": "mobileNumber",
+									"value": "9099921026"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registration using already register numbers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"jsonBody= JSON.parse(responseBody)\r",
+									"\r",
+									"var product=pm.environment.get(\"ProductName\")\r",
+									"\r",
+									"pm.test(\"Verify that user should  not allow to register with same mobile number again\", function () {\r",
+									"\r",
+									"    pm.expect(jsonBody.message).to.eql(\"Mobile number is already registered.\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{URLAPI}}/api/v1/user/register?mobileNumber=9099921026",
+							"host": [
+								"{{URLAPI}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"register"
+							],
+							"query": [
+								{
+									"key": "mobileNumber",
+									"value": "9099921026"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout and try to login with same OTP",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"jsonBody= JSON.parse(responseBody)\r",
+									"\r",
+									"var token= jsonBody.tokenDetails.access_token\r",
+									"console.log(token)\r",
+									"pm.environment.set(\"token\", token);\r",
+									"\r",
+									"pm.test(\"Verify user should allow to do login with valid OTP\", function () {\r",
+									"\r",
+									"\r",
+									"    pm.expect(pm.response.text()).to.include(\"tokenDetails\");\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify User information of logged in user\", function () {\r",
+									"\r",
+									"    pm.expect(jsonBody.userDetails.mobileNumber).to.eql(\"9099921026\");\r",
+									"\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{URLAPI}}/api/v1/user/verifyOtp?otp={{OTP}}&mobileNumber=9099921026",
+							"host": [
+								"{{URLAPI}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"verifyOtp"
+							],
+							"query": [
+								{
+									"key": "otp",
+									"value": "{{OTP}}"
+								},
+								{
+									"key": "mobileNumber",
+									"value": "9099921026"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Resend OTP",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"jsonBody= JSON.parse(responseBody)\r",
+									"\r",
+									"var ResendOTP= jsonBody.otp\r",
+									"console.log(ResendOTP)\r",
+									"pm.environment.set(\"ResendOTP\", ResendOTP);\r",
+									"\r",
+									"pm.test(\"Verify Resend OTP functionality\", function () {\r",
+									"\r",
+									"    \r",
+									"    pm.expect(pm.response.text()).to.include(\"otp\");\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{URLAPI}}/api/v1/user/resendOtp?mobileNumber=9099921026",
+							"host": [
+								"{{URLAPI}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"resendOtp"
+							],
+							"query": [
+								{
+									"key": "mobileNumber",
+									"value": "9099921026"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login with Resent OTP",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"jsonBody= JSON.parse(responseBody)\r",
+									"\r",
+									"var token= jsonBody.tokenDetails.access_token\r",
+									"console.log(token)\r",
+									"pm.environment.set(\"token\", token);\r",
+									"\r",
+									"pm.test(\"Verify user should allow to do login with newly resent OTP\", function () {\r",
+									"\r",
+									"\r",
+									"    pm.expect(pm.response.text()).to.include(\"tokenDetails\");\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify User information of logged in user\", function () {\r",
+									"\r",
+									"    pm.expect(jsonBody.userDetails.mobileNumber).to.eql(\"9099921026\");\r",
+									"\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{URLAPI}}/api/v1/user/verifyOtp?otp={{ResendOTP}}&mobileNumber=9099921026",
+							"host": [
+								"{{URLAPI}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"verifyOtp"
+							],
+							"query": [
+								{
+									"key": "otp",
+									"value": "{{ResendOTP}}"
+								},
+								{
+									"key": "mobileNumber",
+									"value": "9099921026"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Old OTP should be replaced with resent OTP",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"jsonBody= JSON.parse(responseBody)\r",
+									"\r",
+									"\r",
+									"pm.test(\"Verify user should not allow to do login with old OTP (OTP before resend)) \", function () {\r",
+									"\r",
+									"\r",
+									"    pm.expect(jsonBody.error).to.eql(\"Entered Invalid OTP,Please try again\");\r",
+									"\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{URLAPI}}/api/v1/user/verifyOtp?otp={{OTP}}&mobileNumber=9099921026",
+							"host": [
+								"{{URLAPI}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"verifyOtp"
+							],
+							"query": [
+								{
+									"key": "otp",
+									"value": "{{OTP}}"
+								},
+								{
+									"key": "mobileNumber",
+									"value": "9099921026"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Update user profile Informations",
+			"item": [
+				{
+					"name": "User login with registered mobile number Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"jsonBody= JSON.parse(responseBody)\r",
+									"\r",
+									"var OTP= jsonBody.otp\r",
+									"console.log(OTP)\r",
+									"pm.environment.set(\"OTP\", OTP);\r",
+									"\r",
+									"pm.test(\"Verify user should allow to do login with valid registered mobile number and should get OTP\", function () {\r",
+									"\r",
+									"    \r",
+									"    pm.expect(pm.response.text()).to.include(\"opt\");\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{URLAPI}}/api/v1/user/loginUser?mobileNumber=9099921026",
+							"host": [
+								"{{URLAPI}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"loginUser"
+							],
+							"query": [
+								{
+									"key": "mobileNumber",
+									"value": "9099921026"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login in Crysto",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"jsonBody= JSON.parse(responseBody)\r",
+									"\r",
+									"var token= jsonBody.tokenDetails.access_token\r",
+									"var userID= jsonBody.userDetails.id\r",
+									"\r",
+									"console.log(token)\r",
+									"pm.environment.set(\"token\", token);\r",
+									"pm.environment.set(\"userID\", userID);\r",
+									"\r",
+									"pm.test(\"Verify user should allow to do login with valid OTP\", function () {\r",
+									"\r",
+									"\r",
+									"    pm.expect(pm.response.text()).to.include(\"tokenDetails\");\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify User information of logged in user\", function () {\r",
+									"\r",
+									"    pm.expect(jsonBody.userDetails.mobileNumber).to.eql(\"9099921026\");\r",
+									"\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{URLAPI}}/api/v1/user/verifyOtp?otp={{OTP}}&mobileNumber=9099921029",
+							"host": [
+								"{{URLAPI}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"verifyOtp"
+							],
+							"query": [
+								{
+									"key": "otp",
+									"value": "{{OTP}}"
+								},
+								{
+									"key": "mobileNumber",
+									"value": "9099921029"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Full name must not be left blank",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"jsonBody= JSON.parse(responseBody)\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Verify user full name shouldnot be left blank\", function () {\r",
+									"\r",
+									"\r",
+									"        pm.expect(jsonBody.error).to.eql(\"Please enter full name.\");\r",
+									"\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URLAPI}}/api/v1/updateUserFullName?userId={{userID}}&fullName=",
+							"host": [
+								"{{URLAPI}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"updateUserFullName"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userID}}"
+								},
+								{
+									"key": "fullName",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update full name of user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"jsonBody= JSON.parse(responseBody)\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Verify user full name should be updated\", function () {\r",
+									"\r",
+									"\r",
+									"        pm.expect(jsonBody.message).to.eql(\"User's fullname updated successfully.\");\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify User full name is same as given by user\", function () {\r",
+									"\r",
+									"        pm.expect(jsonBody.user.fullName).to.eql(\"Bhavin Sangani\");\r",
+									"\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URLAPI}}/api/v1/updateUserFullName?userId={{userID}}&fullName=Bhavin Sangani",
+							"host": [
+								"{{URLAPI}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"updateUserFullName"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userID}}"
+								},
+								{
+									"key": "fullName",
+									"value": "Bhavin Sangani"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Date of Birth must not be left blank",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"jsonBody= JSON.parse(responseBody)\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Verify user State and Date of birth name should not be left blank\", function () {\r",
+									"\r",
+									"\r",
+									"        pm.expect(jsonBody.error).to.eql(\"Please enter date of birth.\");\r",
+									"\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URLAPI}}/api/v1/updateUserDateOfBirthAndStateId?userId={{userID}}&dateOfBirth=&stateId=1",
+							"host": [
+								"{{URLAPI}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"updateUserDateOfBirthAndStateId"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userID}}"
+								},
+								{
+									"key": "dateOfBirth",
+									"value": ""
+								},
+								{
+									"key": "stateId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "State field must not be left blank",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"jsonBody= JSON.parse(responseBody)\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Verify user State and Date of birth name should not be left blank\", function () {\r",
+									"\r",
+									"\r",
+									"        pm.expect(jsonBody.error).to.eql(\"Please enter state id.\");\r",
+									"\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URLAPI}}/api/v1/updateUserDateOfBirthAndStateId?userId={{userID}}&dateOfBirth=1995-05-30&stateId=",
+							"host": [
+								"{{URLAPI}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"updateUserDateOfBirthAndStateId"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userID}}"
+								},
+								{
+									"key": "dateOfBirth",
+									"value": "1995-05-30"
+								},
+								{
+									"key": "stateId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update State and Date of Birth  of user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"jsonBody= JSON.parse(responseBody)\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Verify userState and Date of birth should be updated\", function () {\r",
+									"\r",
+									"\r",
+									"        pm.expect(jsonBody.message).to.eql(\"User's date of birth and stateid are updated successfully.\");\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify State information is same as given\", function () {\r",
+									"\r",
+									"        pm.expect(jsonBody.user.stateId).to.eql(1);\r",
+									"\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify Date of Birth information is same as given\", function () {\r",
+									"\r",
+									"        pm.expect(jsonBody.user.dateOfBirth).to.eql(\"1995-05-30\");\r",
+									"\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URLAPI}}/api/v1/updateUserDateOfBirthAndStateId?userId={{userID}}&dateOfBirth=1995-05-30&stateId=1",
+							"host": [
+								"{{URLAPI}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"updateUserDateOfBirthAndStateId"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userID}}"
+								},
+								{
+									"key": "dateOfBirth",
+									"value": "1995-05-30"
+								},
+								{
+									"key": "stateId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Allow only 18+ users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"jsonBody= JSON.parse(responseBody)\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Verify userState and Date of birth should be updated\", function () {\r",
+									"\r",
+									"\r",
+									"        pm.expect(jsonBody.error).to.eql(\"Only 18+ users are allowed\");\r",
+									"\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URLAPI}}/api/v1/updateUserDateOfBirthAndStateId?userId={{userID}}&dateOfBirth=2015-05-01&stateId=1",
+							"host": [
+								"{{URLAPI}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"updateUserDateOfBirthAndStateId"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userID}}"
+								},
+								{
+									"key": "dateOfBirth",
+									"value": "2015-05-01"
+								},
+								{
+									"key": "stateId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Portfolio name must not be left blank",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"jsonBody= JSON.parse(responseBody)\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Verify user Portfolio name should not be left blank\", function () {\r",
+									"\r",
+									"\r",
+									"        pm.expect(jsonBody.error).to.eql(\"Please enter portfolio name.\");\r",
+									"\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URLAPI}}/api/v1/updateUserPortfolioName?userId={{userID}}&portfolioName=",
+							"host": [
+								"{{URLAPI}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"updateUserPortfolioName"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userID}}"
+								},
+								{
+									"key": "portfolioName",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Portfolio Name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"jsonBody= JSON.parse(responseBody)\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Verify user Portfolio name should be updated\", function () {\r",
+									"\r",
+									"\r",
+									"        pm.expect(jsonBody.message).to.eql(\"User's portfolio name updated successfully.\");\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify User Portfolio name is same as given by user\", function () {\r",
+									"\r",
+									"        pm.expect(jsonBody.user.portfolioName).to.eql(\"Bhavin21026\");\r",
+									"\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URLAPI}}/api/v1/updateUserPortfolioName?userId={{userID}}&portfolioName=Bhavin21026",
+							"host": [
+								"{{URLAPI}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"updateUserPortfolioName"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userID}}"
+								},
+								{
+									"key": "portfolioName",
+									"value": "Bhavin21026"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User should only allow to set portfolio name once",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"jsonBody= JSON.parse(responseBody)\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Verify User should only allow to set portfolio name once\", function () {\r",
+									"\r",
+									"\r",
+									"        pm.expect(jsonBody.error).to.eql(\"Opps!, you can't update portfolio name multiple times\");\r",
+									"\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URLAPI}}/api/v1/updateUserPortfolioName?userId={{userID}}&portfolioName=BhavinS21026",
+							"host": [
+								"{{URLAPI}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"updateUserPortfolioName"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userID}}"
+								},
+								{
+									"key": "portfolioName",
+									"value": "BhavinS21026"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User should not allow to upload empty files",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"jsonBody= JSON.parse(responseBody)\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Verify User should not allow to upload empty files\", function () {\r",
+									"\r",
+									"\r",
+									"        pm.expect(jsonBody.error).to.eql(\"Cannot upload empty file\");\r",
+									"\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"contentType": "multipart/form-data",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "userId",
+									"value": "{{userID}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URLAPI}}/api/v1/user/image/upload",
+							"host": [
+								"{{URLAPI}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"image",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload profile Image",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"jsonBody= JSON.parse(responseBody)\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Verify user should be able to upload profile image\", function () {\r",
+									"\r",
+									"\r",
+									"        pm.expect(jsonBody.message).to.eql(\"User image uploaded successfully\");\r",
+									"\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/E:/Testing Samples/Image/walkPast.png"
+								},
+								{
+									"key": "userId",
+									"value": "{{userID}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URLAPI}}/api/v1/user/image/upload",
+							"host": [
+								"{{URLAPI}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"image",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Download profile Image",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"/*jsonBody= JSON.parse(responseBody)\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Verify user should be able to download profile image\", function () {\r",
+									"\r",
+									"\r",
+									"        pm.expect(jsonBody.message).to.eql(\"User image uploaded successfully\");\r",
+									"\r",
+									"});*/\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/pdf ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URLAPI}}/api/v1/user/image/download/{{userID}}",
+							"host": [
+								"{{URLAPI}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"image",
+								"download",
+								"{{userID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Invite user",
+			"item": [
+				{
+					"name": "Invite already registered user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"jsonBody= JSON.parse(responseBody)\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Verify user should not be able to invite already registered user\", function () {\r",
+									"\r",
+									"\r",
+									"    pm.expect(pm.response.text()).to.include(true);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n  \"9099921026\"\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URLAPI}}/api/v1/user/invite",
+							"host": [
+								"{{URLAPI}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"invite"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invite not registered user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"jsonBody= JSON.parse(responseBody)\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Verify user should  be able to invite not registered user\", function () {\r",
+									"\r",
+									"\r",
+									"    pm.expect(pm.response.text()).to.include(false);\r",
+									"\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n  \"9409013773\"\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URLAPI}}/api/v1/user/invite",
+							"host": [
+								"{{URLAPI}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"invite"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Follow More People List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"jsonBody= JSON.parse(responseBody)\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Verify list of user whom we can follow\", function () {\r",
+									"\r",
+									"\r",
+									"    pm.expect(pm.response.text()).to.include(\"users\");\r",
+									"\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URLAPI}}/api/v1/user/followMoreUser/{{userID}}",
+							"host": [
+								"{{URLAPI}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"followMoreUser",
+								"{{userID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Connection Controller",
+			"item": [
+				{
+					"name": "Follow User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"jsonBody= JSON.parse(responseBody)\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Verify follow connection functionality\", function () {\r",
+									"\r",
+									"\r",
+									"    pm.expect(jsonBody.message).to.eql(\"Connection saved successfully\");\r",
+									"\r",
+									"});\r",
+									"pm.test(\"Verify following information after connection successfully\", function () {\r",
+									"\r",
+									"\r",
+									"    pm.expect(jsonBody.connection.followingDTO.fullName).to.eql(\"Hiren ramani\");\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify follower information after connection successfully\", function () {\r",
+									"\r",
+									"\r",
+									"    pm.expect(jsonBody.connection.followerDTO.fullName).to.eql(\"Bhavin Sangani\");\r",
+									"\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 0,\r\n  \"followerId\": {{userID}},\r\n  \"followingId\": 10,\r\n  \"followingDTO\": {\r\n    \"id\": 0,\r\n    \"fullName\": \"string\",\r\n    \"mobileNumber\": \"string\",\r\n    \"email\": \"string\",\r\n    \"portfolioName\": \"string\",\r\n    \"imageFileName\": \"string\",\r\n    \"imagePath\": \"string\",\r\n    \"referralCode\": \"string\",\r\n    \"dateOfBirth\": \"string\",\r\n    \"stateId\": 0,\r\n    \"countryId\": 0,\r\n    \"gender\": \"string\",\r\n    \"isActive\": true,\r\n    \"role\": [\r\n      \"string\"\r\n    ],\r\n    \"levelId\": 0,\r\n    \"levelName\": \"string\",\r\n    \"isPortfolioNameUpdated\": true,\r\n    \"isFollowing\": true\r\n  },\r\n  \"followerDTO\": {\r\n    \"id\": 0,\r\n    \"fullName\": \"string\",\r\n    \"mobileNumber\": \"string\",\r\n    \"email\": \"string\",\r\n    \"portfolioName\": \"string\",\r\n    \"imageFileName\": \"string\",\r\n    \"imagePath\": \"string\",\r\n    \"referralCode\": \"string\",\r\n    \"dateOfBirth\": \"string\",\r\n    \"stateId\": 0,\r\n    \"countryId\": 0,\r\n    \"gender\": \"string\",\r\n    \"isActive\": true,\r\n    \"role\": [\r\n      \"string\"\r\n    ],\r\n    \"levelId\": 0,\r\n    \"levelName\": \"string\",\r\n    \"isPortfolioNameUpdated\": true,\r\n    \"isFollowing\": true\r\n  },\r\n  \"isActive\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URLAPI}}/api/v1/connection/save",
+							"host": [
+								"{{URLAPI}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"connection",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Follow another user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"jsonBody= JSON.parse(responseBody)\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Verify follow connection functionality\", function () {\r",
+									"\r",
+									"\r",
+									"    pm.expect(jsonBody.message).to.eql(\"Connection saved successfully\");\r",
+									"\r",
+									"});\r",
+									"pm.test(\"Verify following information after connection successfully\", function () {\r",
+									"\r",
+									"\r",
+									"    pm.expect(jsonBody.connection.followingDTO.fullName).to.eql(\"Mangal Test\");\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify follower information after connection successfully\", function () {\r",
+									"\r",
+									"\r",
+									"    pm.expect(jsonBody.connection.followerDTO.fullName).to.eql(\"Bhavin Sangani\");\r",
+									"\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 0,\r\n  \"followerId\": {{userID}},\r\n  \"followingId\": 22,\r\n  \"followingDTO\": {\r\n    \"id\": 0,\r\n    \"fullName\": \"string\",\r\n    \"mobileNumber\": \"string\",\r\n    \"email\": \"string\",\r\n    \"portfolioName\": \"string\",\r\n    \"imageFileName\": \"string\",\r\n    \"imagePath\": \"string\",\r\n    \"referralCode\": \"string\",\r\n    \"dateOfBirth\": \"string\",\r\n    \"stateId\": 0,\r\n    \"countryId\": 0,\r\n    \"gender\": \"string\",\r\n    \"isActive\": true,\r\n    \"role\": [\r\n      \"string\"\r\n    ],\r\n    \"levelId\": 0,\r\n    \"levelName\": \"string\",\r\n    \"isPortfolioNameUpdated\": true,\r\n    \"isFollowing\": true\r\n  },\r\n  \"followerDTO\": {\r\n    \"id\": 0,\r\n    \"fullName\": \"string\",\r\n    \"mobileNumber\": \"string\",\r\n    \"email\": \"string\",\r\n    \"portfolioName\": \"string\",\r\n    \"imageFileName\": \"string\",\r\n    \"imagePath\": \"string\",\r\n    \"referralCode\": \"string\",\r\n    \"dateOfBirth\": \"string\",\r\n    \"stateId\": 0,\r\n    \"countryId\": 0,\r\n    \"gender\": \"string\",\r\n    \"isActive\": true,\r\n    \"role\": [\r\n      \"string\"\r\n    ],\r\n    \"levelId\": 0,\r\n    \"levelName\": \"string\",\r\n    \"isPortfolioNameUpdated\": true,\r\n    \"isFollowing\": true\r\n  },\r\n  \"isActive\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URLAPI}}/api/v1/connection/save",
+							"host": [
+								"{{URLAPI}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"connection",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Following List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"jsonBody= JSON.parse(responseBody)\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Verify follower details\", function () {\r",
+									"\r",
+									"\r",
+									"    pm.expect(pm.response.text()).to.include(\"Hiren ramani\");\r",
+									"\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 0,\r\n  \"followerId\": 0,\r\n  \"followingId\": 0,\r\n  \"followingDTO\": {\r\n    \"id\": 0,\r\n    \"fullName\": \"string\",\r\n    \"mobileNumber\": \"string\",\r\n    \"email\": \"string\",\r\n    \"portfolioName\": \"string\",\r\n    \"imageFileName\": \"string\",\r\n    \"imagePath\": \"string\",\r\n    \"referralCode\": \"string\",\r\n    \"dateOfBirth\": \"string\",\r\n    \"stateId\": 0,\r\n    \"countryId\": 0,\r\n    \"gender\": \"string\",\r\n    \"isActive\": true,\r\n    \"role\": [\r\n      \"string\"\r\n    ],\r\n    \"levelId\": 0,\r\n    \"levelName\": \"string\",\r\n    \"isPortfolioNameUpdated\": true,\r\n    \"isFollowing\": true\r\n  },\r\n  \"followerDTO\": {\r\n    \"id\": 0,\r\n    \"fullName\": \"string\",\r\n    \"mobileNumber\": \"string\",\r\n    \"email\": \"string\",\r\n    \"portfolioName\": \"string\",\r\n    \"imageFileName\": \"string\",\r\n    \"imagePath\": \"string\",\r\n    \"referralCode\": \"string\",\r\n    \"dateOfBirth\": \"string\",\r\n    \"stateId\": 0,\r\n    \"countryId\": 0,\r\n    \"gender\": \"string\",\r\n    \"isActive\": true,\r\n    \"role\": [\r\n      \"string\"\r\n    ],\r\n    \"levelId\": 0,\r\n    \"levelName\": \"string\",\r\n    \"isPortfolioNameUpdated\": true,\r\n    \"isFollowing\": true\r\n  },\r\n  \"isActive\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URLAPI}}/api/v1/connection/byfollowing/22",
+							"host": [
+								"{{URLAPI}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"connection",
+								"byfollowing",
+								"22"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Follow me",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"jsonBody= JSON.parse(responseBody)\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Verify follow connection functionality\", function () {\r",
+									"\r",
+									"\r",
+									"    pm.expect(jsonBody.message).to.eql(\"Connection saved successfully\");\r",
+									"\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 0,\r\n  \"followerId\": 10,\r\n  \"followingId\": {{userID}},\r\n  \"followingDTO\": {\r\n    \"id\": 0,\r\n    \"fullName\": \"string\",\r\n    \"mobileNumber\": \"string\",\r\n    \"email\": \"string\",\r\n    \"portfolioName\": \"string\",\r\n    \"imageFileName\": \"string\",\r\n    \"imagePath\": \"string\",\r\n    \"referralCode\": \"string\",\r\n    \"dateOfBirth\": \"string\",\r\n    \"stateId\": 0,\r\n    \"countryId\": 0,\r\n    \"gender\": \"string\",\r\n    \"isActive\": true,\r\n    \"role\": [\r\n      \"string\"\r\n    ],\r\n    \"levelId\": 0,\r\n    \"levelName\": \"string\",\r\n    \"isPortfolioNameUpdated\": true,\r\n    \"isFollowing\": true\r\n  },\r\n  \"followerDTO\": {\r\n    \"id\": 0,\r\n    \"fullName\": \"string\",\r\n    \"mobileNumber\": \"string\",\r\n    \"email\": \"string\",\r\n    \"portfolioName\": \"string\",\r\n    \"imageFileName\": \"string\",\r\n    \"imagePath\": \"string\",\r\n    \"referralCode\": \"string\",\r\n    \"dateOfBirth\": \"string\",\r\n    \"stateId\": 0,\r\n    \"countryId\": 0,\r\n    \"gender\": \"string\",\r\n    \"isActive\": true,\r\n    \"role\": [\r\n      \"string\"\r\n    ],\r\n    \"levelId\": 0,\r\n    \"levelName\": \"string\",\r\n    \"isPortfolioNameUpdated\": true,\r\n    \"isFollowing\": true\r\n  },\r\n  \"isActive\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URLAPI}}/api/v1/connection/save",
+							"host": [
+								"{{URLAPI}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"connection",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Follower List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"jsonBody= JSON.parse(responseBody)\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Verify total following 1 details\", function () {\r",
+									"\r",
+									"\r",
+									"    pm.expect(pm.response.text()).to.include(\"Hiren ramani\");\r",
+									"\r",
+									"});\r",
+									"pm.test(\"Verify total following 2 details\", function () {\r",
+									"\r",
+									"\r",
+									"    pm.expect(pm.response.text()).to.include(\"Mangal Test\");\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 0,\r\n  \"followerId\": 0,\r\n  \"followingId\": 0,\r\n  \"followingDTO\": {\r\n    \"id\": 0,\r\n    \"fullName\": \"string\",\r\n    \"mobileNumber\": \"string\",\r\n    \"email\": \"string\",\r\n    \"portfolioName\": \"string\",\r\n    \"imageFileName\": \"string\",\r\n    \"imagePath\": \"string\",\r\n    \"referralCode\": \"string\",\r\n    \"dateOfBirth\": \"string\",\r\n    \"stateId\": 0,\r\n    \"countryId\": 0,\r\n    \"gender\": \"string\",\r\n    \"isActive\": true,\r\n    \"role\": [\r\n      \"string\"\r\n    ],\r\n    \"levelId\": 0,\r\n    \"levelName\": \"string\",\r\n    \"isPortfolioNameUpdated\": true,\r\n    \"isFollowing\": true\r\n  },\r\n  \"followerDTO\": {\r\n    \"id\": 0,\r\n    \"fullName\": \"string\",\r\n    \"mobileNumber\": \"string\",\r\n    \"email\": \"string\",\r\n    \"portfolioName\": \"string\",\r\n    \"imageFileName\": \"string\",\r\n    \"imagePath\": \"string\",\r\n    \"referralCode\": \"string\",\r\n    \"dateOfBirth\": \"string\",\r\n    \"stateId\": 0,\r\n    \"countryId\": 0,\r\n    \"gender\": \"string\",\r\n    \"isActive\": true,\r\n    \"role\": [\r\n      \"string\"\r\n    ],\r\n    \"levelId\": 0,\r\n    \"levelName\": \"string\",\r\n    \"isPortfolioNameUpdated\": true,\r\n    \"isFollowing\": true\r\n  },\r\n  \"isActive\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URLAPI}}/api/v1/connection/byfollower/22",
+							"host": [
+								"{{URLAPI}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"connection",
+								"byfollower",
+								"22"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Friends Controller",
+			"item": [
+				{
+					"name": "Unfollow  friend",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"jsonBody= JSON.parse(responseBody)\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Verify unfollow connection functionality\", function () {\r",
+									"\r",
+									"\r",
+									"    pm.expect(jsonBody.message).to.eql(\"Unfollowed Friend successfully\");\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userId\": 22,\r\n  \"unfollowUserId\": 26\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URLAPI}}/api/v1/friends/unfollowFriend",
+							"host": [
+								"{{URLAPI}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"friends",
+								"unfollowFriend"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Friend List",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 0,\r\n  \"followerId\": 0,\r\n  \"followingId\": 0,\r\n  \"followingDTO\": {\r\n    \"id\": 0,\r\n    \"fullName\": \"string\",\r\n    \"mobileNumber\": \"string\",\r\n    \"email\": \"string\",\r\n    \"portfolioName\": \"string\",\r\n    \"imageFileName\": \"string\",\r\n    \"imagePath\": \"string\",\r\n    \"referralCode\": \"string\",\r\n    \"dateOfBirth\": \"string\",\r\n    \"stateId\": 0,\r\n    \"countryId\": 0,\r\n    \"gender\": \"string\",\r\n    \"isActive\": true,\r\n    \"role\": [\r\n      \"string\"\r\n    ],\r\n    \"levelId\": 0,\r\n    \"levelName\": \"string\",\r\n    \"isPortfolioNameUpdated\": true,\r\n    \"isFollowing\": true\r\n  },\r\n  \"followerDTO\": {\r\n    \"id\": 0,\r\n    \"fullName\": \"string\",\r\n    \"mobileNumber\": \"string\",\r\n    \"email\": \"string\",\r\n    \"portfolioName\": \"string\",\r\n    \"imageFileName\": \"string\",\r\n    \"imagePath\": \"string\",\r\n    \"referralCode\": \"string\",\r\n    \"dateOfBirth\": \"string\",\r\n    \"stateId\": 0,\r\n    \"countryId\": 0,\r\n    \"gender\": \"string\",\r\n    \"isActive\": true,\r\n    \"role\": [\r\n      \"string\"\r\n    ],\r\n    \"levelId\": 0,\r\n    \"levelName\": \"string\",\r\n    \"isPortfolioNameUpdated\": true,\r\n    \"isFollowing\": true\r\n  },\r\n  \"isActive\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URLAPI}}/api/v1/friends/findAllByFriendId/10",
+							"host": [
+								"{{URLAPI}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"friends",
+								"findAllByFriendId",
+								"10"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

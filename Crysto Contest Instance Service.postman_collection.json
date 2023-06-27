@@ -1,0 +1,142 @@
+{
+	"info": {
+		"_postman_id": "e8d7bbfc-217c-4c0a-b20e-4fd591a02b0d",
+		"name": "Crysto Contest Instance Service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19726677"
+	},
+	"item": [
+		{
+			"name": "Run Scheduler",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URLCONTEST}}/api/v1/contest/contestInstance/manualScheduler",
+					"host": [
+						"{{URLCONTEST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"contest",
+						"contestInstance",
+						"manualScheduler"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Contest Instaces using Product Category",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URLCONTEST}}/api/v1/contest/contestInstance/productCategory?productCategoryId=2&productCategoryInstanceId=12&userId=6",
+					"host": [
+						"{{URLCONTEST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"contest",
+						"contestInstance",
+						"productCategory"
+					],
+					"query": [
+						{
+							"key": "productCategoryId",
+							"value": "2"
+						},
+						{
+							"key": "productCategoryInstanceId",
+							"value": "12"
+						},
+						{
+							"key": "userId",
+							"value": "6"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Contest Instance By contest template ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URLCONTEST}}/api/v1/contest/contestInstance/contestTemplate/13",
+					"host": [
+						"{{URLCONTEST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"contest",
+						"contestInstance",
+						"contestTemplate",
+						"13"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Contest Instance By contest category ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URLCONTEST}}/api/v1/contest/contestInstance/contestCategory/1",
+					"host": [
+						"{{URLCONTEST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"contest",
+						"contestInstance",
+						"contestCategory",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Contest Instances",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URLCONTEST}}/api/v1/contest/contestInstance/all",
+					"host": [
+						"{{URLCONTEST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"contest",
+						"contestInstance",
+						"all"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

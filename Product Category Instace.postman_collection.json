@@ -1,0 +1,83 @@
+{
+	"info": {
+		"_postman_id": "ec7e6770-d2e3-4952-9d2f-5fd46d6c6239",
+		"name": "Product Category Instace",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19726677"
+	},
+	"item": [
+		{
+			"name": "Create Product Instance",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/api/v1/admin/productCategoryInstance/save",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"productCategoryInstance",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Product category Instance By Product ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/api/v1/admin/productCategoryInstance/1",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"productCategoryInstance",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Product category Instance By Product category Instance ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/api/v1/admin/productCategoryInstance/getById/9",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"productCategoryInstance",
+						"getById",
+						"9"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

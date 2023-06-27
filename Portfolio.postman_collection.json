@@ -1,0 +1,122 @@
+{
+	"info": {
+		"_postman_id": "499be1bb-4255-4368-8597-f4e8b8d77718",
+		"name": "Portfolio",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19726677"
+	},
+	"item": [
+		{
+			"name": "Create New Portfolio",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"productCategoryInstanceId\": 4,\r\n  \"userId\": 24,\r\n  \"portfolioDtoList\": [\r\n    {\r\n      \r\n      \"buyOrSale\": false,\r\n      \"multiplier\": 1,\r\n      \"openPrice\": 2400,\r\n      \"closePrice\": 2410,\r\n      \"highPrice\": 2500,\r\n      \"lowPrice\": 2350,\r\n      \"percentageChanges\": 0.42,\r\n      \"points\": 10,\r\n      \"itemId\": 2,\r\n      \"active\": true\r\n    },{\r\n      \r\n      \"buyOrSale\": true,\r\n      \"multiplier\": 3,\r\n      \"openPrice\": 1000,\r\n      \"closePrice\": 1501,\r\n      \"highPrice\": 1600,\r\n      \"lowPrice\": 900,\r\n      \"percentageChanges\": 50.1,\r\n      \"points\": 501,\r\n      \"itemId\": 1,\r\n      \"active\": true\r\n    },{\r\n      \r\n      \"buyOrSale\": false,\r\n      \"multiplier\": 2,\r\n      \"openPrice\": 295,\r\n      \"closePrice\": 502,\r\n      \"highPrice\": 500,\r\n      \"lowPrice\": 300,\r\n      \"percentageChanges\": 70.17,\r\n      \"points\": 207,\r\n      \"itemId\":9,\r\n      \"active\": true\r\n    },{      \r\n      \"buyOrSale\": true,\r\n      \"multiplier\": 1,\r\n      \"openPrice\": 132,\r\n      \"closePrice\": 125,\r\n      \"highPrice\": 125,\r\n      \"lowPrice\": 80,\r\n      \"percentageChanges\": -5.30,\r\n      \"points\": -7,\r\n      \"itemId\": 7,\r\n      \"active\": true\r\n    }\r\n  ]\r\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLCONTEST}}/api/v1/contest/contestPortfolio/save",
+					"host": [
+						"{{URLCONTEST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"contest",
+						"contestPortfolio",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Portfolio",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \r\n        \"contestPortfolioId\": 27,\r\n        \"productCategoryInstanceId\": 24,\r\n        \"userId\": 6,\r\n        \"portfolioName\": \"P6\",\r\n        \"totalPoints\": null,\r\n        \"portfolioDtoList\": [\r\n            {\r\n                \"portfolioId\": 150,\r\n                \"contestPortfolioId\": 27,\r\n                \"buyOrSale\": true,\r\n                \"multiplier\": 1,\r\n                \"openPrice\": 1000.0,\r\n                \"closePrice\": 1501.0,\r\n                \"highPrice\": 1500.0,\r\n                \"lowPrice\": 1400.0,\r\n                \"percentageChanges\": 50.1,\r\n                \"points\": 5010.0,\r\n                \"itemId\": 5,\r\n                \"itemName\": \"TCS\",\r\n                \"nseCode\": \"YER\",\r\n                \"imageName\": null,\r\n                \"imagePath\": null,\r\n                \"active\": true\r\n            },\r\n            {\r\n                \"portfolioId\": 151,\r\n                \"contestPortfolioId\": 27,\r\n                \"buyOrSale\": true,\r\n                \"multiplier\": 3,\r\n                \"openPrice\": 2400.0,\r\n                \"closePrice\": 2410.0,\r\n                \"highPrice\": 2500.0,\r\n                \"lowPrice\": 2400.0,\r\n                \"percentageChanges\": 0.42,\r\n                \"points\": 126.0,\r\n                \"itemId\": 4,\r\n                \"itemName\": \"Reliance\",\r\n                \"nseCode\": \"VEF\",\r\n                \"imageName\": null,\r\n                \"imagePath\": null,\r\n                \"active\": true\r\n            },\r\n            {\r\n                \"portfolioId\": 152,\r\n                \"contestPortfolioId\": 27,\r\n                \"buyOrSale\": false,\r\n                \"multiplier\": 2,\r\n                \"openPrice\": 1000.0,\r\n                \"closePrice\": 1501.0,\r\n                \"highPrice\": 1500.0,\r\n                \"lowPrice\": 1400.0,\r\n                \"percentageChanges\": 50.1,\r\n                \"points\": -10020.0,\r\n                \"itemId\": 2,\r\n                \"itemName\": \"TCS\",\r\n                \"nseCode\": \"YER\",\r\n                \"imageName\": null,\r\n                \"imagePath\": null,\r\n                \"active\": true\r\n            },\r\n            {\r\n                \"portfolioId\": 153,\r\n                \"contestPortfolioId\": 27,\r\n                \"buyOrSale\": false,\r\n                \"multiplier\": 1,\r\n                \"openPrice\": 60.0,\r\n                \"closePrice\": 78.71,\r\n                \"highPrice\": 1100.0,\r\n                \"lowPrice\": 300.0,\r\n                \"percentageChanges\": 31.18,\r\n                \"points\": -3118.0,\r\n                \"itemId\": 10,\r\n                \"itemName\": \"LIC India\",\r\n                \"nseCode\": \"HNL\",\r\n                \"imageName\": null,\r\n                \"imagePath\": null,\r\n                \"active\": true\r\n            }\r\n        ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLCONTEST}}/api/v1/contest/contestPortfolio/update",
+					"host": [
+						"{{URLCONTEST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"contest",
+						"contestPortfolio",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Refresh Live Market",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URLCONTEST}}/api/v1/contest/contestPortfolio/refreshLivePrice",
+					"host": [
+						"{{URLCONTEST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"contest",
+						"contestPortfolio",
+						"refreshLivePrice"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Portfolio By Contest Portfolio ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URLCONTEST}}/api/v1/contest/contestPortfolio/portfolioByContestPortdolioId?productCategoryInstanceId=12&contestPortfolioId=4",
+					"host": [
+						"{{URLCONTEST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"contest",
+						"contestPortfolio",
+						"portfolioByContestPortdolioId"
+					],
+					"query": [
+						{
+							"key": "productCategoryInstanceId",
+							"value": "12"
+						},
+						{
+							"key": "contestPortfolioId",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

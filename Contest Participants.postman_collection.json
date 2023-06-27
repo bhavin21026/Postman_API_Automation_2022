@@ -1,0 +1,243 @@
+{
+	"info": {
+		"_postman_id": "3b3add8a-0269-422d-9fae-331a5c44df19",
+		"name": "Contest Participants",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19726677"
+	},
+	"item": [
+		{
+			"name": "Create Contest Participant",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userId\": 22,\r\n  \"contestPortfolioId\": 272,\r\n  \"contestInstanceId\": \"2fa197f7-9e23-4ddd-a31c-8c22e14f278d\",\r\n  \"productCategoryInstanceId\": 441\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLCONTEST}}/api/v1/contest/contestParticipent/save",
+					"host": [
+						"{{URLCONTEST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"contest",
+						"contestParticipent",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Contest Participant portfolio",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLCONTEST}}/api/v1/contest/contestParticipent/updateContestParticipentPortfolio/50cd0a3f-5507-4fc8-8d04-4e7f5f15cf92/31",
+					"host": [
+						"{{URLCONTEST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"contest",
+						"contestParticipent",
+						"updateContestParticipentPortfolio",
+						"50cd0a3f-5507-4fc8-8d04-4e7f5f15cf92",
+						"31"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find My Contest using userID and ProductCatInstanceID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLCONTEST}}/api/v1/contest/contestParticipent/findMyContestByUserIdAndProductCategoryInstanceId/6/24",
+					"host": [
+						"{{URLCONTEST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"contest",
+						"contestParticipent",
+						"findMyContestByUserIdAndProductCategoryInstanceId",
+						"6",
+						"24"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Refresh live market price inside contest particpants",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLCONTEST}}/api/v1/contest/contestParticipent/refreshLivePrice",
+					"host": [
+						"{{URLCONTEST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"contest",
+						"contestParticipent",
+						"refreshLivePrice"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Contest Multiple Participant",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userId\": 7,\r\n  \"productCategoryInstanceId\": 25,\r\n  \"contestPortfolioList\": [\r\n30,31],\r\n  \"contestInstanceId\": \"da0842ec-c9db-488b-901c-f98be302971b\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLCONTEST}}/api/v1/contest/contestParticipent/save/multipleContestParticipent",
+					"host": [
+						"{{URLCONTEST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"contest",
+						"contestParticipent",
+						"save",
+						"multipleContestParticipent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all participant using Contest Instance ID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLCONTEST}}/api/v1/contest/contestParticipent/contestParticipentByContestInstanceId/7db5b370-689b-4bd6-b3b4-0bbd9aae18df",
+					"host": [
+						"{{URLCONTEST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"contest",
+						"contestParticipent",
+						"contestParticipentByContestInstanceId",
+						"7db5b370-689b-4bd6-b3b4-0bbd9aae18df"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all participant using Contest Participant ID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLCONTEST}}/api/v1/contest/contestParticipent/contestParticipentByContestParticipentId/63ee269d-3dd0-43b4-af4d-b16a831eb20e/24",
+					"host": [
+						"{{URLCONTEST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"contest",
+						"contestParticipent",
+						"contestParticipentByContestParticipentId",
+						"63ee269d-3dd0-43b4-af4d-b16a831eb20e",
+						"24"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
